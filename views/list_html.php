@@ -4,12 +4,12 @@
     <div class="container">
         <ul class="ariane">
             <li><a href="/">Accueil</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Articles</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Expositions</a></li>
         </ul>
     </div>
 </nav>
 
-<h1 class="page-title">Articles</h1>
+<h1 class="page-title">Expositions</h1>
 <div class="display-options level is-flex-desktop">
     <div class="level-left">
         <button class="button action-btn add-new is-uppercase has-text-centered">
@@ -34,7 +34,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
-                    <a href="./Articles" class="dropdown-item">
+                    <a href="./index" class="dropdown-item">
                         vignettes
                     </a>
                 </div>
@@ -77,7 +77,7 @@
             <tbody>
             <?php foreach($articles as $key=>$article): ?>
                 <tr>
-                    <td><a href="<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Show/Details/id/<?php print $article['page_id']; ?>"><?php print $article["content"]["title"]." ".$article["content"]["subtitle"]; ?></a></td>
+                    <td><a href="<?php print __CA_URL_ROOT__; ?>/index.php/Expositions/Show/Details/id/<?php print $article['page_id']; ?>"><?php print $article["content"]["title"]." ".$article["content"]["subtitle"]; ?></a></td>
                     <td><?php print $article["content"]["date"]; ?></td>
                     <td><?php print $article["content"]["author"]; ?></td>
                 </tr>
@@ -130,7 +130,7 @@
     }
 
     .breadcrumb {
-        background-color: #BFD7E3;
+        background-color: #EB9560;
         padding: 1rem;
         line-height: 19px;
         color: #232425 !important;

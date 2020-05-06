@@ -5,12 +5,12 @@ $blocks = $this->getVar("blocks");
     <div class="container">
         <ul class="ariane">
             <li><a href="/">Accueil</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Articles</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Expositions</a></li>
         </ul>
     </div>
 </nav>
 
-<h1 class="page-title">Articles</h1>
+<h1 class="page-title">Expositions</h1>
 <div class="display-options level is-flex-desktop">
     <div class="level-left">
         <a href="/index.php/Contribuer/Pages/Form/template/article">
@@ -59,7 +59,7 @@ $blocks = $this->getVar("blocks");
 
 <div class="level">
     <div class="level-item has-text-centered">
-        <button class="button action-btn more is-medium has-text-weight-bold">Charger plus d’articles</button>
+        <button class="button action-btn more is-medium has-text-weight-bold">Charger plus d’expositions</button>
     </div>
 </div>
 
@@ -74,7 +74,7 @@ $blocks = $this->getVar("blocks");
         right: 50%;
         margin-left: -50vw;
         margin-right: -50vw;
-        background-color: #BFD7E3;
+        background-color: #EB9560;
         padding: 1rem;
         line-height: 19px;
         color: #232425 !important;
