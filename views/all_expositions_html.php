@@ -57,12 +57,6 @@ $blocks = $this->getVar("blocks");
     <?php print $blocks; ?>
 </div>
 
-<div class="level">
-    <div class="level-item has-text-centered">
-       <a href="<?php _p(__CA_URL_ROOT__) ?>/index.php/Expositions/Show/All">
-           <button class="button action-btn more is-medium has-text-weight-bold">Charger plus d’expositions</button></a>
-    </div>
-</div>
 
 <style>
     /* A intégrer proprement dans le PHOItheme */
