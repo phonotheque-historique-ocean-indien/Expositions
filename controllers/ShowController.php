@@ -33,7 +33,7 @@ class ShowController extends ActionController
     {
         parent::__construct($po_request, $po_response, $pa_view_paths);
 
-        $this->opo_config = Configuration::load(__CA_APP_DIR__ . '/plugins/Articles/conf/expositions.conf');
+        $this->opo_config = Configuration::load(__CA_APP_DIR__ . '/plugins/Expositions/conf/expositions.conf');
 
     }
 
@@ -42,12 +42,21 @@ class ShowController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
+        $articles = [];
+        foreach ($all_articles as $testarticle) {
+            if ($testarticle["template_title"]=="exposition") {
+                $articles[] = $testarticle;
+            }
+        }
+        $articles = array_splice($articles,0, 6);
         $blocks = "";
-        for($id=1;$id<7;$id++) {
-            $page = new ca_site_pages($id);
+        foreach ($articles as $art) {
+            $page = new ca_site_pages($art["page_id"]);
             $article = $page->get("content");
             $this->view->setVar("article", $article);
-            $this->view->setVar("id", $id);
+            $this->view->setVar("id", $art["page_id"]);
             $blocks .= $this->render("home_block_html.php", true);
         }
         //$page = new ca_site_pages(1);
@@ -55,6 +64,29 @@ class ShowController extends ActionController
         $this->render('index_html.php');
     }
 
+    public function All($type = "")
+    {
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
+        $articles = [];
+        foreach ($all_articles as $testarticle) {
+            if ($testarticle["template_title"]=="exposition") {
+                $articles[] = $testarticle;
+            }
+        }
+        $blocks = "";
+        foreach ($articles as $art) {
+//            var_dump($art);die();
+            $page = new ca_site_pages($art["page_id"]);
+            $article = $page->get("content");
+            $this->view->setVar("article", $article);
+            $this->view->setVar("id", $art["page_id"]);
+            $blocks .= $this->render("home_block_html.php", true);
+        }
+        //$page = new ca_site_pages(1);
+        $this->view->setVar("blocks", $blocks);
+        $this->render('all_expositions_html.php');
+    }
     public function Wall() {
         $this->render('index_html.php');
     }
@@ -63,7 +95,6 @@ class ShowController extends ActionController
         $id= $this->request->getParameter("id", pInteger);
         // TODO Redirect if no ID
         $page = new ca_site_pages($id);
-        //$page = new ca_site_pages(1);
         $article = $page->get("content");
         $this->view->setVar("article", $article);
 
