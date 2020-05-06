@@ -1,12 +1,12 @@
 <?php
 $article = $this->getVar("article");
 ?>
-<div class="article-phoi">
+<div class="exposition-phoi">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <div class="container">
             <ul class="ariane">
                 <li><a href="/">Accueil</a></li>
-                <li><a href="./Articles">Articles</a></li>
+                <li><a href="./Expositions">Expositions</a></li>
                 <li class="is-active"><a href="#" aria-current="page"><?php _p($article["title"] . " " . $article["subtitle"]); ?></a>
                 </li>
             </ul>
