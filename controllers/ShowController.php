@@ -103,15 +103,23 @@ class ShowController extends ActionController
     }
 
     public function List() {
-        $listing = ca_site_pages::getPageList();
-        $listing = array_slice($listing, 0, 10);
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
         $articles = [];
-        foreach($listing as $key=>$article_info) {
+        foreach ($all_articles as $testarticle) {
+            if ($testarticle["template_title"]=="exposition") {
+//	            $articles = $testarticle;
+//	            array_push($articles, $testarticle);
+                $articles[] = $testarticle;
+            }
+        }
+        $result=[];
+        foreach($articles as $key=>$article_info) {
             $article = new ca_site_pages($article_info["page_id"]);
             $content = $article->get("ca_site_pages.content");
-            $articles[$key] = ["page_id"=>$article_info["page_id"], "title"=>$article_info["title"], "content"=>$content];
+            $result[$key] = ["page_id"=>$article_info["page_id"], "title"=>$article_info["title"], "content"=>$content];
         }
-        $this->view->setVar("articles", $articles);
+        $this->view->setVar("articles", $result);
         $this->render('list_html.php');
     }
 }

@@ -1,15 +1,18 @@
 <?php $articles = $this->getVar("articles");
+//var_dump($articles);die();
 ?>
 <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
     <div class="container">
         <ul class="ariane">
             <li><a href="/">Accueil</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Expositions</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Articles</a></li>
         </ul>
     </div>
 </nav>
 
-<h1 class="page-title">Expositions</h1>
+<h1 class="page-title">Articles</h1>
+
+
 <div class="display-options level is-flex-desktop">
     <div class="level-left">
         <button class="button action-btn add-new is-uppercase has-text-centered">
@@ -34,7 +37,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
-                    <a href="./index" class="dropdown-item">
+                    <a href="<?php print __CA_URL_ROOT__; ?>/index.php/Expositions/Show/index" class="dropdown-item">
                         vignettes
                     </a>
                 </div>
@@ -45,84 +48,42 @@
 
 <hr>
 
-<div class="columns">
-    <div class="column">
-        <table class="table is-striped is-fullwidth">
-            <thead>
-            <tr>
-                <th>
-                    <abbr title="Title">
-                        Titre
-                        <span class="icon red">
-                <i class="fa fa-caret-down"></i>
-              </span>
-                    </abbr></th>
-                <th>
-                    <abbr title="Date">Date
-                        <span class="icon red">
-                <i class="fa fa-caret-down"></i>
-              </span>
-                    </abbr>
-                </th>
-                <th>
-                    <abbr title="Author">
-                        Auteur
-                        <span class="icon red">
-              <i class="fa fa-caret-down"></i>
-            </span>
-                    </abbr>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach($articles as $key=>$article): ?>
-                <tr>
-                    <td><a href="<?php print __CA_URL_ROOT__; ?>/index.php/Expositions/Show/Details/id/<?php print $article['page_id']; ?>"><?php print $article["content"]["title"]." ".$article["content"]["subtitle"]; ?></a></td>
-                    <td><?php print $article["content"]["date"]; ?></td>
-                    <td><?php print $article["content"]["author"]; ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<nav class="pagination is-right is-small" role="navigation" aria-label="pagination">
-    <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-        <span>
-          <p class="level-item">résultats par page &nbsp
-            <em class="has-text-weight-semibold">12</em>
-        </span>
-                <span class="icon red">
-          <i class="fa fa-caret-down"></i>
-        </span>
-            </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-                <a href="#" class="dropdown-item">
-                    24
-                </a>
-                <a href="#" class="dropdown-item">
-                    48
-                </a>
-                <a href="#" class="dropdown-item">
-                    100
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <ul class="pagination-list">
-        <li><a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a></li>
-        <li><a class="pagination-link" aria-label="Goto page 2">2</a></li>
-        <li><a class="pagination-link" aria-label="Goto page 3">3</a></li>
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" aria-label="Goto page 232">232</a></li>
-    </ul>
-</nav>
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#revueDePresse').DataTable({
+            "language": {"url": "/datatables_french.json"},
+            "info": false
+        });
+    } );
+</script>
+<table class="table" id="revueDePresse">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Auteur</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Auteur</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <?php foreach($articles as $key=>$article): ?>
+        <tr>
+            <td><a href="<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Show/Details/id/<?php print $article['page_id']; ?>"><?php print $article["content"]["title"]." ".$article["content"]["subtitle"]; ?></a></td>
+            <td><?php print $article["content"]["date"]; ?></td>
+            <td><?php print $article["content"]["author"]; ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
 
 <style>
     .ariane {
@@ -130,7 +91,7 @@
     }
 
     .breadcrumb {
-        background-color: #EB9560;
+        background-color: #BFD7E3;
         padding: 1rem;
         line-height: 19px;
         color: #232425 !important;
@@ -265,5 +226,23 @@
         .level-item {
             justify-content: flex-start;
         }
+    }
+
+    table.dataTable .even {
+        background-color:#fafafa;
+    }
+    table.dataTable th {
+        color: #8D9DA0 !important;
+        font-size:1.3em;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background: #E4675F;
+        border: none;
+        color: #fff !important;
+        border-radius: 8px;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+        font-size:0.9em !important;
     }
 </style>
