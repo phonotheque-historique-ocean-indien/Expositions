@@ -87,6 +87,7 @@ class ShowController extends ActionController
         $this->view->setVar("blocks", $blocks);
         $this->render('all_expositions_html.php');
     }
+
     public function Wall() {
         $this->render('index_html.php');
     }
@@ -98,7 +99,7 @@ class ShowController extends ActionController
         $article = $page->get("content");
         $this->view->setVar("article", $article);
 
-        $this->render('article_html.php');
+        $this->render('exposition_html.php');
     }
 
     public function List() {
