@@ -104,6 +104,17 @@ $article = $this->getVar("article");
                         </article>
 
                         <?php break;
+                    case "video-player": ?>
+
+                        <article class="article-content">
+                            <video controls width="auto" preload="metadata">
+                                <source src="<?php _p($bloc["video"]); ?>"
+                                        type="video/<?php _p($bloc["format"]); ?>">
+                                Sorry, your browser doesn't support embedded videos.
+                            </video>
+                        </article>
+
+                        <?php break;
                     case "references":
                         print "<div class=\"article-content footnotes\">";
                         if ($bloc["footnote1"]) print "<h4>Références</h4><ol>";
