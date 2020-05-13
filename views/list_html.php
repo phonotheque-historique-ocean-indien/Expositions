@@ -5,12 +5,12 @@
     <div class="container">
         <ul class="ariane">
             <li><a href="/">Accueil</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Articles</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Expositions</a></li>
         </ul>
     </div>
 </nav>
 
-<h1 class="page-title">Articles</h1>
+<h1 class="page-title">Expositions</h1>
 
 
 <div class="display-options level is-flex-desktop">
