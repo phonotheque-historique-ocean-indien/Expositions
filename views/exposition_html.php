@@ -104,11 +104,11 @@ $article = $this->getVar("article");
                         </article>
 
                         <?php break;
-                    case "video-player": ?>
+                    case "video": ?>
 
                         <article class="article-content">
                             <video controls width="auto" preload="metadata">
-                                <source src="<?php _p($bloc["video"]); ?>"
+                                <source src="<?php _p($bloc["video-track"]); ?>"
                                         type="video/<?php _p($bloc["format"]); ?>">
                                 Sorry, your browser doesn't support embedded videos.
                             </video>
