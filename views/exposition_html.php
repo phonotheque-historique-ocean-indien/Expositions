@@ -107,7 +107,7 @@ $article = $this->getVar("article");
                     case "video": ?>
 
                     <div class="columns">
-                        <div class="column is-8 is-offset-2">
+                        <div class="column is-10 is-offset-1">
                             <div class="card">
                                 <div class="card-image">
                                     <figure class="has-ratio">
@@ -122,12 +122,14 @@ $article = $this->getVar("article");
                                 <div class="card-content">
                                     <div class="media">
                                         <div class="media-content">
-                                            <p class="video-title has-text-centered"><?php _p($bloc["video-title"]); ?><span class="video-artist"> <?php _p($bloc["video-artist"]); ?></span></p>
+                                            <p class="video-title has-text-centered">
+                                                <?php _p($bloc["video-title"]); ?><span class="video-artist">  <?php _p($bloc["video-artist"]); ?></span>
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="card-content-item">
                                         <span class="icon">
-                                            <i class="mdi mdi-play is-large" onclick="$('#videoplayer')[0].play();"></i>
+                                            <i class="mdi mdi-play is-large" id="btn"></i>
                                         </span>
                                         <span class="icon">
                                             <i class="mdi mdi-stop is-large" onclick="$('#videoplayer')[0].pause();$('#videoplayer')[0].currentTime = 0"></i>
@@ -190,22 +192,32 @@ $article = $this->getVar("article");
             $('span#duration').text(minutes+":"+(seconds<10 ? "0" : "")+seconds);
         });
 
-        var audio = document.getElementById('videoplayer');
-        audio.addEventListener('timeupdate', function () {
-            var _currentTime = parseFloat(audio.currentTime);
+        var video = document.getElementById('videoplayer');
+        video.addEventListener('timeupdate', function () {
+            var _currentTime = parseFloat(video.currentTime);
             var minutes = Math.floor(Math.floor(_currentTime) / 60);
             var seconds = Math.ceil(Math.floor(_currentTime) % 60);
             $('span#position').text(minutes+":"+(seconds<10 ? "0" : "")+seconds);
-            var progression = _currentTime/audio.duration *100;
+            var progression = _currentTime/video.duration *100;
             $('#videoplayerprogression').attr("value", progression);
         }, false);
 
         var progressBar = document.querySelector("progress");
         progressBar.addEventListener("click", function seek(e) {
             var percent = e.offsetX / this.offsetWidth;
-            audio.currentTime = percent * audio.duration;
+            video.currentTime = percent * video.duration;
             progressBar.value = percent / 100;
         });
 
+        var play = document.querySelector('.mdi-play');
+        play.addEventListener('click', togglePlayPause);
+        function togglePlayPause() {
+            if($('#videoplayer')[0].paused) {
+                $('#videoplayer')[0].play();
+            } else {
+                $('#videoplayer')[0].pause();
+            }
+        }
     });
+
 </script>
