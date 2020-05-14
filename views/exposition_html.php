@@ -219,5 +219,4 @@ $article = $this->getVar("article");
             }
         }
     });
-
 </script>
