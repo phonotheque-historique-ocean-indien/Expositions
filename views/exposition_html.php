@@ -104,6 +104,52 @@ $article = $this->getVar("article");
                         </article>
 
                         <?php break;
+                    case "video": ?>
+
+                    <div class="columns">
+                        <div class="column is-10 is-offset-1">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="has-ratio">
+                                        <video id="videoplayer">
+                                            <source
+                                                src="<?php _p($bloc["video-track"]); ?>"
+                                                type="video/<?php _p($bloc["format"]); ?>"
+                                            >
+                                        </video>
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="video-title has-text-centered">
+                                                <?php _p($bloc["video-title"]); ?><span class="video-artist">  <?php _p($bloc["video-artist"]); ?></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card-content-item">
+                                        <span class="icon">
+                                            <i class="mdi mdi-play is-large" id="btn"></i>
+                                        </span>
+                                        <span class="icon">
+                                            <i class="mdi mdi-stop is-large" onclick="$('#videoplayer')[0].pause();$('#videoplayer')[0].currentTime = 0"></i>
+                                        </span>
+                                        <p id="timing" class="has-text-left">
+                                            <span id="position">0:00</span>
+                                        </p>
+                                        <progress class="progress is-small"
+                                            id="videoplayerprogression" value="0" max="100">0%
+                                        </progress>
+                                        <p id="timing" class="has-text-left">
+                                            <span id="duration">0:00</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <?php break;
                     case "references":
                         print "<div class=\"article-content footnotes\">";
                         if ($bloc["footnote1"]) print "<h4>Références</h4><ol>";
@@ -137,3 +183,40 @@ $article = $this->getVar("article");
     </section>
 
 </div>
+
+<script>
+    $(document).on("ready", function() {
+        $('#videoplayer').bind('canplay', function(){
+            var minutes = Math.floor(Math.floor(this.duration) / 60);
+            var seconds = Math.ceil(Math.floor(this.duration) % 60);
+            $('span#duration').text(minutes+":"+(seconds<10 ? "0" : "")+seconds);
+        });
+
+        var video = document.getElementById('videoplayer');
+        video.addEventListener('timeupdate', function () {
+            var _currentTime = parseFloat(video.currentTime);
+            var minutes = Math.floor(Math.floor(_currentTime) / 60);
+            var seconds = Math.ceil(Math.floor(_currentTime) % 60);
+            $('span#position').text(minutes+":"+(seconds<10 ? "0" : "")+seconds);
+            var progression = _currentTime/video.duration *100;
+            $('#videoplayerprogression').attr("value", progression);
+        }, false);
+
+        var progressBar = document.querySelector("progress");
+        progressBar.addEventListener("click", function seek(e) {
+            var percent = e.offsetX / this.offsetWidth;
+            video.currentTime = percent * video.duration;
+            progressBar.value = percent / 100;
+        });
+
+        var play = document.querySelector('.mdi-play');
+        play.addEventListener('click', togglePlayPause);
+        function togglePlayPause() {
+            if($('#videoplayer')[0].paused) {
+                $('#videoplayer')[0].play();
+            } else {
+                $('#videoplayer')[0].pause();
+            }
+        }
+    });
+</script>
