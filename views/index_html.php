@@ -212,4 +212,11 @@ $blocks = $this->getVar("blocks");
             justify-content: flex-start;
         }
     }
+    
+    
+</style>
+<style>
+	.card-image, .card-content {
+		cursor: pointer;
+	}
 </style>
